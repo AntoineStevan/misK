@@ -1,0 +1,335 @@
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] end
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[LOG] first line
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[LOG] first line
+
+[LOG] line n° 10
+[LOG] line n° 13
+[LOG] line n° 16
+[LOG] line n° 19
+[LOG] sub_main 1
+
+[LOG] sub_main 2
+[LOG] sub_main 3
+[LOG] sub_main end
+[LOG] end
+[24/06/2021 10:02:37,075241][misK/printing/logger.py][main][51][LOG] first line
+
+[24/06/2021 10:02:37,075349][misK/printing/logger.py][main][53][LOG] line n° 10
+[24/06/2021 10:02:37,075418][misK/printing/logger.py][main][53][LOG] line n° 13
+[24/06/2021 10:02:37,075480][misK/printing/logger.py][main][53][LOG] line n° 16
+[24/06/2021 10:02:37,075541][misK/printing/logger.py][main][53][LOG] line n° 19
+[24/06/2021 10:02:37,075604][misK/printing/logger.py][sub_main][44][LOG] sub_main 1
+
+[24/06/2021 10:02:37,075666][misK/printing/logger.py][sub_main][45][LOG] sub_main 2
+[24/06/2021 10:02:37,075726][misK/printing/logger.py][sub_main][46][LOG] sub_main 3
+[24/06/2021 10:02:37,075784][misK/printing/logger.py][sub_main][47][LOG] sub_main end
+[24/06/2021 10:02:37,075838][misK/printing/logger.py][main][55][LOG] end
+[24/06/2021 10:02:59,140302][misK/printing/logger.py][main][50][LOG] first line
+
+[24/06/2021 10:02:59,140392][misK/printing/logger.py][main][52][LOG] line n° 10
+[24/06/2021 10:02:59,140470][misK/printing/logger.py][main][52][LOG] line n° 13
+[24/06/2021 10:02:59,140551][misK/printing/logger.py][main][52][LOG] line n° 16
+[24/06/2021 10:02:59,140626][misK/printing/logger.py][main][52][LOG] line n° 19
+[24/06/2021 10:02:59,140707][misK/printing/logger.py][sub_main][43][LOG] sub_main 1
+
+[24/06/2021 10:02:59,140777][misK/printing/logger.py][sub_main][44][LOG] sub_main 2
+[24/06/2021 10:02:59,140857][misK/printing/logger.py][sub_main][45][LOG] sub_main 3
+[24/06/2021 10:02:59,140936][misK/printing/logger.py][sub_main][46][LOG] sub_main end
+[24/06/2021 10:02:59,141011][misK/printing/logger.py][main][54][LOG] end
+[24/06/2021 10:03:41,720826][misK/printing/logger.py][main][50][LOG] first line
+
+[24/06/2021 10:03:41,720936][misK/printing/logger.py][main][52][LOG] line n° 10
+[24/06/2021 10:03:41,721003][misK/printing/logger.py][main][52][LOG] line n° 13
+[24/06/2021 10:03:41,721061][misK/printing/logger.py][main][52][LOG] line n° 16
+[24/06/2021 10:03:41,721117][misK/printing/logger.py][main][52][LOG] line n° 19
+[24/06/2021 10:03:41,721178][misK/printing/logger.py][sub_main][43][LOG] sub_main 1
+
+[24/06/2021 10:03:41,721242][misK/printing/logger.py][sub_main][44][LOG] sub_main 2
+[24/06/2021 10:03:41,721299][misK/printing/logger.py][sub_main][45][LOG] sub_main 3
+[24/06/2021 10:03:41,721355][misK/printing/logger.py][sub_main][46][LOG] sub_main end
+[24/06/2021 10:03:41,721424][misK/printing/logger.py][main][54][LOG] end
+[24/06/2021 10:03:57,671826][misK/printing/logger.py][main][51][LOG] first line
+
+[24/06/2021 10:03:57,671932][misK/printing/logger.py][main][53][LOG] line n° 10
+[24/06/2021 10:03:57,672002][misK/printing/logger.py][main][53][LOG] line n° 13
+[24/06/2021 10:03:57,672064][misK/printing/logger.py][main][53][LOG] line n° 16
+[24/06/2021 10:03:57,672124][misK/printing/logger.py][main][53][LOG] line n° 19
+[24/06/2021 10:03:57,672186][misK/printing/logger.py][sub_main][44][LOG] sub_main 1
+
+[24/06/2021 10:03:57,672248][misK/printing/logger.py][sub_main][45][LOG] sub_main 2
+[24/06/2021 10:03:57,672307][misK/printing/logger.py][sub_main][46][LOG] sub_main 3
+[24/06/2021 10:03:57,672365][misK/printing/logger.py][sub_main][47][LOG] sub_main end
+[24/06/2021 10:03:57,672418][misK/printing/logger.py][main][55][LOG] end
+[24/06/2021 10:09:10,071712][misK/printing/logger.py][open_logger][25][LOG] logger opened.
+[24/06/2021 10:09:10,071800][misK/printing/logger.py][log][34][LOG] first line
+[24/06/2021 10:10:05,640022][misK/printing/logger.py][<module>][66][LOG] logger opened.
+[24/06/2021 10:10:05,640117][misK/printing/logger.py][log][34][LOG] first line
+[24/06/2021 10:10:51,945176][misK/printing/logger.py][<module>][66][LOG] logger opened.
+[24/06/2021 10:10:51,945276][misK/printing/logger.py][main][58][LOG] first line
+[24/06/2021 10:11:14,101957][misK/printing/logger.py][<module>][66][LOG] logger opened.
+[24/06/2021 10:11:14,102049][misK/printing/logger.py][main][58][LOG] first line
+[24/06/2021 10:11:51,138792][misK/printing/logger.py][<module>][67][LOG] logger opened.
+[24/06/2021 10:11:51,138883][misK/printing/logger.py][main][59][LOG] first line
+[24/06/2021 10:12:54,095457][misK/printing/logger.py][<module>][69][LOG] logger opened.
+[24/06/2021 10:12:54,095550][misK/printing/logger.py][main][61][LOG] first line
+
+[24/06/2021 10:12:54,095643][misK/printing/logger.py][main][63][LOG] line n° 10
+[24/06/2021 10:12:54,095725][misK/printing/logger.py][main][63][LOG] line n° 13
+[24/06/2021 10:12:54,095800][misK/printing/logger.py][main][63][LOG] line n° 16
+[24/06/2021 10:12:54,095875][misK/printing/logger.py][main][63][LOG] line n° 19
+[24/06/2021 10:12:54,095956][misK/printing/logger.py][sub_main][54][LOG] sub_main 1
+
+[24/06/2021 10:12:54,096050][misK/printing/logger.py][sub_main][55][LOG] sub_main 2
+[24/06/2021 10:12:54,096140][misK/printing/logger.py][sub_main][56][LOG] sub_main 3
+[24/06/2021 10:12:54,096229][misK/printing/logger.py][sub_main][57][LOG] sub_main end
+[24/06/2021 10:12:54,096308][misK/printing/logger.py][main][65][LOG] end
+[24/06/2021 10:12:54,096377][misK/printing/logger.py][<module>][71][LOG] logger closed.
+
+[24/06/2021 10:13:41,759891][misK/printing/logger.py][<module>][67][LOG] logger opened.
+[24/06/2021 10:13:41,759968][misK/printing/logger.py][main][59][LOG] first line
+
+[24/06/2021 10:13:41,760058][misK/printing/logger.py][main][61][LOG] line n° 10
+[24/06/2021 10:13:41,760132][misK/printing/logger.py][main][61][LOG] line n° 13
+[24/06/2021 10:13:41,760198][misK/printing/logger.py][main][61][LOG] line n° 16
+[24/06/2021 10:13:41,760262][misK/printing/logger.py][main][61][LOG] line n° 19
+[24/06/2021 10:13:41,760330][misK/printing/logger.py][sub_main][52][LOG] sub_main 1
+
+[24/06/2021 10:13:41,760403][misK/printing/logger.py][sub_main][53][LOG] sub_main 2
+[24/06/2021 10:13:41,760469][misK/printing/logger.py][sub_main][54][LOG] sub_main 3
+[24/06/2021 10:13:41,760535][misK/printing/logger.py][sub_main][55][LOG] sub_main end
+[24/06/2021 10:13:41,760609][misK/printing/logger.py][main][63][LOG] end
+[24/06/2021 10:13:41,760664][misK/printing/logger.py][<module>][69][LOG] logger closed.
+
+[24/06/2021 10:14:06,282488][misK/printing/logger.py][<module>][68][LOG] logger opened.
+
+[24/06/2021 10:14:06,282557][misK/printing/logger.py][main][60][LOG] first line
+[24/06/2021 10:14:06,282637][misK/printing/logger.py][main][62][LOG] line n° 10
+[24/06/2021 10:14:06,282699][misK/printing/logger.py][main][62][LOG] line n° 13
+[24/06/2021 10:14:06,282756][misK/printing/logger.py][main][62][LOG] line n° 16
+[24/06/2021 10:14:06,282812][misK/printing/logger.py][main][62][LOG] line n° 19
+
+[24/06/2021 10:14:06,282870][misK/printing/logger.py][sub_main][53][LOG] sub_main 1
+[24/06/2021 10:14:06,282932][misK/printing/logger.py][sub_main][54][LOG] sub_main 2
+[24/06/2021 10:14:06,282989][misK/printing/logger.py][sub_main][55][LOG] sub_main 3
+[24/06/2021 10:14:06,283044][misK/printing/logger.py][sub_main][56][LOG] sub_main end
+
+[24/06/2021 10:14:06,283095][misK/printing/logger.py][main][64][LOG] end
+[24/06/2021 10:14:06,283147][misK/printing/logger.py][<module>][70][LOG] logger closed.
+
+[24/06/2021 10:14:14,832477][misK/printing/logger.py][<module>][67][LOG] logger opened.
+
+[24/06/2021 10:14:14,832555][misK/printing/logger.py][main][59][LOG] first line
+[24/06/2021 10:14:14,832652][misK/printing/logger.py][main][61][LOG] line n° 10
+[24/06/2021 10:14:14,832719][misK/printing/logger.py][main][61][LOG] line n° 13
+[24/06/2021 10:14:14,832780][misK/printing/logger.py][main][61][LOG] line n° 16
+[24/06/2021 10:14:14,832839][misK/printing/logger.py][main][61][LOG] line n° 19
+
+[24/06/2021 10:14:14,832910][misK/printing/logger.py][sub_main][52][LOG] sub_main 1
+[24/06/2021 10:14:14,832984][misK/printing/logger.py][sub_main][53][LOG] sub_main 2
+[24/06/2021 10:14:14,833048][misK/printing/logger.py][sub_main][54][LOG] sub_main 3
+[24/06/2021 10:14:14,833113][misK/printing/logger.py][sub_main][55][LOG] sub_main end
+
+[24/06/2021 10:14:14,833173][misK/printing/logger.py][main][63][LOG] end
+[24/06/2021 10:14:14,833236][misK/printing/logger.py][<module>][69][LOG] logger closed.
+
+[24/06/2021 10:16:23,462339][misK/printing/logger.py][<module>][76][LOG] logger opened.
+
+[24/06/2021 10:16:23,462413][misK/printing/logger.py][main][68][LOG] first line
+[24/06/2021 10:16:23,462498][misK/printing/logger.py][main][70][LOG] line n° 10
+[24/06/2021 10:16:23,462564][misK/printing/logger.py][main][70][LOG] line n° 13
+[24/06/2021 10:16:23,462625][misK/printing/logger.py][main][70][LOG] line n° 16
+[24/06/2021 10:16:23,462683][misK/printing/logger.py][main][70][LOG] line n° 19
+
+[24/06/2021 10:16:23,462748][misK/printing/logger.py][sub_main][61][LOG] sub_main 1
+[24/06/2021 10:16:23,462815][misK/printing/logger.py][sub_main][62][LOG] sub_main 2
+[24/06/2021 10:16:23,462874][misK/printing/logger.py][sub_main][63][LOG] sub_main 3
+[24/06/2021 10:16:23,462932][misK/printing/logger.py][sub_main][64][LOG] sub_main end
+
+[24/06/2021 10:16:23,462986][misK/printing/logger.py][main][72][LOG] end
+
+[24/06/2021 10:16:23,463040][misK/printing/logger.py][<module>][78][LOG] logger closed.
+
+[24/06/2021 10:17:48,498805][misK/printing/logger.py][<module>][84][LOG] logger opened.
+
+[24/06/2021 10:17:48,498883][misK/printing/logger.py][main][76][LOG] first line
+[24/06/2021 10:17:48,498971][misK/printing/logger.py][main][78][LOG] line n° 10
+[24/06/2021 10:17:48,499038][misK/printing/logger.py][main][78][LOG] line n° 13
+[24/06/2021 10:17:48,499101][misK/printing/logger.py][main][78][LOG] line n° 16
+[24/06/2021 10:17:48,499161][misK/printing/logger.py][main][78][LOG] line n° 19
+
+[24/06/2021 10:17:48,499230][misK/printing/logger.py][sub_main][61][LOG] sub_main 1
+[24/06/2021 10:17:48,499297][misK/printing/logger.py][sub_main][62][LOG] sub_main 2
+[24/06/2021 10:17:48,499356][misK/printing/logger.py][sub_main][63][LOG] sub_main 3
+[24/06/2021 10:17:48,499418][misK/printing/logger.py][sub_main][71][LOG] dictionary example: {'a': 1, 'b': 11, 'c': 111, 'd': 1111, 'e': 11111}
+[24/06/2021 10:17:48,499487][misK/printing/logger.py][sub_main][72][LOG] sub_main end
+
+[24/06/2021 10:17:48,499543][misK/printing/logger.py][main][80][LOG] end
+
+[24/06/2021 10:17:48,499599][misK/printing/logger.py][<module>][86][LOG] logger closed.
+
+[24/06/2021 10:18:11,528766][misK/printing/logger.py][<module>][88][LOG] logger opened.
+
+[24/06/2021 10:18:11,528845][misK/printing/logger.py][main][80][LOG] first line
+[24/06/2021 10:18:11,528932][misK/printing/logger.py][main][82][LOG] line n° 10
+[24/06/2021 10:18:11,529000][misK/printing/logger.py][main][82][LOG] line n° 13
+[24/06/2021 10:18:11,529061][misK/printing/logger.py][main][82][LOG] line n° 16
+[24/06/2021 10:18:11,529119][misK/printing/logger.py][main][82][LOG] line n° 19
+
+[24/06/2021 10:18:11,529184][misK/printing/logger.py][sub_main][61][LOG] sub_main 1
+[24/06/2021 10:18:11,529250][misK/printing/logger.py][sub_main][62][LOG] sub_main 2
+[24/06/2021 10:18:11,529309][misK/printing/logger.py][sub_main][63][LOG] sub_main 3
+[24/06/2021 10:18:11,529371][misK/printing/logger.py][sub_main][75][LOG] dictionary example: {'a': 1, 'b': 11, 'c': 111, 'd': 1111, 'e': 11111, 'f': 111111, 'g': 1111111, 'h': 11111111, 'i': 111111111}
+[24/06/2021 10:18:11,529470][misK/printing/logger.py][sub_main][76][LOG] sub_main end
+
+[24/06/2021 10:18:11,529528][misK/printing/logger.py][main][84][LOG] end
+
+[24/06/2021 10:18:11,529585][misK/printing/logger.py][<module>][90][LOG] logger closed.
+
+[24/06/2021 10:18:26,917471][misK/printing/logger.py][<module>][91][LOG] logger opened.
+
+[24/06/2021 10:18:26,917546][misK/printing/logger.py][main][83][LOG] first line
+[24/06/2021 10:18:26,917631][misK/printing/logger.py][main][85][LOG] line n° 10
+[24/06/2021 10:18:26,917698][misK/printing/logger.py][main][85][LOG] line n° 13
+[24/06/2021 10:18:26,917758][misK/printing/logger.py][main][85][LOG] line n° 16
+[24/06/2021 10:18:26,917816][misK/printing/logger.py][main][85][LOG] line n° 19
+
+[24/06/2021 10:18:26,917882][misK/printing/logger.py][sub_main][61][LOG] sub_main 1
+[24/06/2021 10:18:26,917948][misK/printing/logger.py][sub_main][62][LOG] sub_main 2
+[24/06/2021 10:18:26,918008][misK/printing/logger.py][sub_main][63][LOG] sub_main 3
+[24/06/2021 10:18:26,918068][misK/printing/logger.py][sub_main][78][LOG] dictionary example: {'a': 1, 'b': 11, 'c': 111, 'd': 1111, 'e': 11111, 'f': 111111, 'g': 1111111, 'h': 11111111, 'i': 111111111, 'j': 1111111111, 'k': 11111111111, 'l': 111111111111}
+[24/06/2021 10:18:26,918141][misK/printing/logger.py][sub_main][79][LOG] sub_main end
+
+[24/06/2021 10:18:26,918197][misK/printing/logger.py][main][87][LOG] end
+
+[24/06/2021 10:18:26,918252][misK/printing/logger.py][<module>][93][LOG] logger closed.
+
+[24/06/2021 10:21:10,238635][misK/printing/logger.py][<module>][78][LOG] logger opened.
+
+[24/06/2021 10:21:10,238709][misK/printing/logger.py][main][70][LOG] first line
+[24/06/2021 10:21:10,238797][misK/printing/logger.py][main][72][LOG] line n° 10
+[24/06/2021 10:21:10,238862][misK/printing/logger.py][main][72][LOG] line n° 13
+[24/06/2021 10:21:10,238923][misK/printing/logger.py][main][72][LOG] line n° 16
+[24/06/2021 10:21:10,238981][misK/printing/logger.py][main][72][LOG] line n° 19
+
+[24/06/2021 10:21:10,239049][misK/printing/logger.py][sub_main][61][LOG] sub_main 1
+[24/06/2021 10:21:10,239116][misK/printing/logger.py][sub_main][62][LOG] sub_main 2
+[24/06/2021 10:21:10,239176][misK/printing/logger.py][sub_main][63][LOG] sub_main 3
+[24/06/2021 10:21:10,239267][misK/printing/logger.py][sub_main][65][LOG] dictionary example: {'a': 0, 'b': 1, 'c': 11, 'd': 111, 'e': 1111, 'f': 11111, 'g': 111111, 'h': 1111111, 'i': 11111111, 'j': 111111111}
+[24/06/2021 10:21:10,239339][misK/printing/logger.py][sub_main][66][LOG] sub_main end
+
+[24/06/2021 10:21:10,239397][misK/printing/logger.py][main][74][LOG] end
+
+[24/06/2021 10:21:10,239453][misK/printing/logger.py][<module>][80][LOG] logger closed.
+
+[24/06/2021 10:21:26,115345][misK/printing/logger.py][<module>][78][LOG] logger opened.
+
+[24/06/2021 10:21:26,115436][misK/printing/logger.py][main][70][LOG] first line
+[24/06/2021 10:21:26,115550][misK/printing/logger.py][main][72][LOG] line n° 10
+[24/06/2021 10:21:26,115624][misK/printing/logger.py][main][72][LOG] line n° 13
+[24/06/2021 10:21:26,115692][misK/printing/logger.py][main][72][LOG] line n° 16
+[24/06/2021 10:21:26,115756][misK/printing/logger.py][main][72][LOG] line n° 19
+
+[24/06/2021 10:21:26,115838][misK/printing/logger.py][sub_main][61][LOG] sub_main 1
+[24/06/2021 10:21:26,115917][misK/printing/logger.py][sub_main][62][LOG] sub_main 2
+[24/06/2021 10:21:26,116010][misK/printing/logger.py][sub_main][63][LOG] sub_main 3
+[24/06/2021 10:21:26,116183][misK/printing/logger.py][sub_main][65][LOG] dictionary example: {'a': 0, 'b': 1, 'c': 11, 'd': 111, 'e': 1111, 'f': 11111, 'g': 111111, 'h': 1111111, 'i': 11111111, 'j': 111111111, 'k': 1111111111, 'l': 11111111111, 'm': 111111111111, 'n': 1111111111111, 'o': 11111111111111, 'p': 111111111111111, 'q': 1111111111111111, 'r': 11111111111111111, 's': 111111111111111111, 't': 1111111111111111111}
+[24/06/2021 10:21:26,116273][misK/printing/logger.py][sub_main][66][LOG] sub_main end
+
+[24/06/2021 10:21:26,116336][misK/printing/logger.py][main][74][LOG] end
+
+[24/06/2021 10:21:26,116398][misK/printing/logger.py][<module>][80][LOG] logger closed.
+

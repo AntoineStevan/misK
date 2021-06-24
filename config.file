@@ -1,0 +1,33 @@
+[loggers]
+keys=root,sampleLogger
+
+[logger_root]
+level=DEBUG
+handlers=consoleHandler
+args=(open("log.log", 'a'), )
+
+[logger_sampleLogger]
+level=DEBUG
+handlers=consoleHandler
+qualname=sampleLogger
+propagate=0
+filename=log.log
+
+
+
+[handlers]
+keys=consoleHandler
+
+[handler_consoleHandler]
+class=StreamHandler
+level=DEBUG
+formatter=sampleFormatter
+args=(sys.stdout, )
+
+
+
+[formatters]
+keys=sampleFormatter
+
+[formatter_sampleFormatter]
+format=[%(asctime)s][%(process)d][%(name)s][%(levelname)s][%(module)s][%(funcName)s] %(message)s
