@@ -18,7 +18,7 @@ ACTIONS = [u'↙', u'←', u'↖', u'↓', u'⌀',
            u'↑', u'↘', u'→', u'↗', 'D',
            'A', 'W', 'S', 'Q', 'E']
 LENGTH = 50
-_f = np.pi/180
+_f = np.pi / 180
 ARROWS = [(135 * _f, LENGTH), (180 * _f, LENGTH), (225 * _f, LENGTH), (+90 * _f, LENGTH), (0, 0),
           (270 * _f, LENGTH), (+45 * _f, LENGTH), (+0. * _f, LENGTH), (315 * _f, LENGTH), (0, 0),
           (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
@@ -27,48 +27,46 @@ ARROWS = [(135 * _f, LENGTH), (180 * _f, LENGTH), (225 * _f, LENGTH), (+90 * _f,
 class Recorder(VecEnvWrapper):
     def __init__(self, env, directory, name_prefix="gif", mode="episode", trigger=1,
                  frame_rate=30, needs_render=0, desired_output_size=(480, 480),
-                 font="font.ttf", font_size=1, verbose=False):
+                 font="font.ttf", font_size=1, log=print):
         """
             Constructs a Recorder instance, to allow the recording of an agent in the environment.
 
             Args
             ----
-                env : ToBaselinesVecEnv or child
-                    the vectorized environment that needs some recording.
-                directory : str
-                    the name of the root directory used for the recordings.
-                name_prefix : str, optional
-                    the name prefix for all the current recordings.
-                mode : str, optional
-                    the recorde mode. If "episode", all episodes are saved in separate recordings. If "trigger", uses
-                    the trigger to record, i.e. in one file, there will be 'trigger' consecutive episodes. Otherwise,
-                    all the episodes, from constructing to closing the environment, will be in the same video.
-                trigger : int, optional
-                    the number of episodes in each video, if mode is "trigger".
-                frame_rate : int, optional
-                    the frame rate of the final videos.
-                needs_render : int, optional
-                    tells if the wrapper needs to lively render the observations. it is indeed the time for each frame.
-                    If less than or equal to 0, no rendering.
-                desired_output_size : (int, int), optional
-                    the output video size, in pixels.
-                font : str, optional
-                    the path to the desired font.
-                font_size : int, optional
-                    the font size for overlays.
-                verbose : bool, optional
-                    triggers the verbose mode.
+            env : ToBaselinesVecEnv or child
+                the vectorized environment that needs some recording.
+            directory : str
+                the name of the root directory used for the recordings.
+            name_prefix : str, optional
+                the name prefix for all the current recordings.
+            mode : str, optional
+                the recorde mode. If "episode", all episodes are saved in separate recordings. If "trigger", uses
+                the trigger to record, i.e. in one file, there will be 'trigger' consecutive episodes. Otherwise,
+                all the episodes, from constructing to closing the environment, will be in the same video.
+            trigger : int, optional
+                the number of episodes in each video, if mode is "trigger".
+            frame_rate : int, optional
+                the frame rate of the final videos.
+            needs_render : int, optional
+                tells if the wrapper needs to lively render the observations. it is indeed the time for each frame.
+                If less than or equal to 0, no rendering.
+            desired_output_size : (int, int), optional
+                the output video size, in pixels.
+            font : str, optional
+                the path to the desired font.
+            font_size : int, optional
+                the font size for overlays.
+            log : function, optional
+                the log function to print strings. Defaults to built-in print.
 
             Returns
             -------
             self : Recorder
                 the constructed Recorder object instance.
         """
-        # triggers verbose mode for the whole environment.
-        self.verbose = verbose
+        self.print = log
 
-        if self.verbose:
-            print(f"-> {self.__class__.__name__}", end=' ')
+        self.print(f"-> {self.__class__.__name__}", end=' ')
         super().__init__(venv=env)
 
         # to store the frames.
@@ -106,9 +104,8 @@ class Recorder(VecEnvWrapper):
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
             autocreation = True
-        if self.verbose:
-            print(f"(recordings will be saved in {self.directory} (name: {name_prefix}, auto: {int(autocreation)}))",
-                  end=' ')
+        self.print(f"(recordings will be saved in {self.directory} "
+                   f"(name: {name_prefix}, auto: {int(autocreation)}))", end=' ')
 
         self.dist_buffer = []
         self.action_buffer = []
@@ -225,13 +222,12 @@ class Recorder(VecEnvWrapper):
         # computing the overlay stamps.
         lengths, infos = list(zip(*self.meta_buffer))
         overlays = []
-        t = trange(len(lengths), desc="computing overlay stamps") if self.verbose else range(len(lengths))
+        t = trange(len(lengths), desc="computing overlay stamps")
         for i in t:
             overlays += [(i + 1, len(lengths), k + 1, lengths[i], infos[i]) for k in range(lengths[i])]
 
         # frame stamps.
-        t = trange(len(self.frame_buffer), desc="image processing and stamping") \
-            if self.verbose else range(len(self.frame_buffer))
+        t = trange(len(self.frame_buffer), desc="image processing and stamping")
         player = tuple(map(lambda x: x // 2, self.desired_output_size))
         for i in t:
             self.frame_buffer[i] = np.transpose(self.frame_buffer[i], (1, 2, 0))
@@ -279,13 +275,12 @@ class Recorder(VecEnvWrapper):
         filename = os.path.join(self.directory, name + ".gif")
 
         # saving the video.
-        if self.verbose:
-            print(f"saving video in {filename}...", end=' ', flush=True)
+        self.print(f"saving video in {filename}...", end=' ', flush=True)
+        print("saving video")
         self.frame_buffer[0].save(filename, save_all=True, append_images=self.frame_buffer[1:],
                                   optimize=True, duration=1000 // self.frame_rate, loop=0)
         self.saved_videos.append(filename)
-        if self.verbose:
-            print("done")
+        self.print("done")
 
         # clearing the buffers.
         self.clear_buffers()
@@ -324,10 +319,10 @@ class Recorder(VecEnvWrapper):
             self.save()
 
         # show the saved videos and clears the list to print it only once when Recorder.close() is called many times.
-        if self.verbose and len(self.saved_videos) > 0:
-            print("open saved videos with:")
+        if len(self.saved_videos) > 0:
+            self.print("open saved videos with:")
             for video in self.saved_videos:
-                print(f"eog {video}")
+                self.print(f"eog {video}")
             self.saved_videos = []
 
 

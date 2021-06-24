@@ -2,26 +2,25 @@ from misK.rl.procgen.wrappers.base import VecEnvWrapper
 
 
 class LimitEpisode(VecEnvWrapper):
-    def __init__(self, env, max_steps, verbose=False):
+    def __init__(self, env, max_steps, log=print):
         """
             Constructs a LimitEpisode instance, to allow the limiting of an agent in the environment.
 
             Args
             ----
-                env : ToBaselinesVecEnv or child
-                    the vectorized environment that needs some recording.
-                max_steps : int
-                    the maximum number of steps allowed per episode before force quit.
-                verbose : bool, optional
-                    triggers the verbose mode.
+            env : ToBaselinesVecEnv or child
+                the vectorized environment that needs some recording.
+            max_steps : int
+                the maximum number of steps allowed per episode before force quit.
+            log : function, optional
+                the log function to print strings. Defaults to built-in print.
 
             Returns
             -------
             self : LimitEpisode
                 the constructed LimitEpisode object instance.
         """
-        if verbose:
-            print(f"-> {self.__class__.__name__}", end=' ')
+        log(f"-> {self.__class__.__name__}", end=' ')
         super().__init__(venv=env)
         self.max_steps = max_steps
         self.current_step = 0

@@ -6,7 +6,7 @@ from torch.nn.functional import softmax as tnnf_softmax
 
 
 class ProbabilityDistributionLogger:
-    def __init__(self, actions, trials, save_probas=None, show_probas=False, column_width=10):
+    def __init__(self, actions, trials, save_probas=None, show_probas=False, column_width=10, log=print):
         """
             ProbabilityDistributionLogger constructor.
 
@@ -22,6 +22,8 @@ class ProbabilityDistributionLogger:
                 tells whether to print the probability distributions of the agent in the terminal.
             column_width : int, optional
                 the width of the columns used in 'show_probas' mode.
+            log : function, optional
+                the log function to print strings. Defaults to built-in print.
 
             Returns
             -------
@@ -43,13 +45,13 @@ class ProbabilityDistributionLogger:
             labels = ["step", "ep"] + actions
             current_width, terminal_width = len(self.file_format.format(*labels)), os.get_terminal_size()[0]
             if current_width > terminal_width:
-                print(f"-- TOO WIDE FOR TERMINAL-- maximum allowed of {terminal_width}: got {current_width}")
+                log(f"-- TOO WIDE FOR TERMINAL-- maximum allowed of {terminal_width}: got {current_width}")
                 self.terminal_col_widths = [max(4, len(str(500 * trials))), max(2, len(str(trials)))]
                 new_col_width = (terminal_width - sum(self.terminal_col_widths)) // len(actions) - 2
                 self.terminal_col_widths += [new_col_width] * len(actions)
                 self.terminal_format = '|'.join(
                     ["{: ^" + str(col_width) + "}" for col_width in self.terminal_col_widths])
-                print(f"\tgoing from {column_width} to {new_col_width}.")
+                log(f"\tgoing from {column_width} to {new_col_width}.")
             else:
                 self.terminal_format = self.file_format[::]
                 self.terminal_col_widths = self.file_col_widths[::]
@@ -99,7 +101,7 @@ class ProbabilityDistributionLogger:
 
         return probas
 
-    def close(self, agent):
+    def close(self, agent, log=print):
         """
             Closes the logger, namely its file.
 
@@ -107,6 +109,8 @@ class ProbabilityDistributionLogger:
             ----
             agent : torch.nn.Module or child
                 the policy, or equivalently the agent, under evaluation.
+        log : function, optional
+            the log function to print strings. Defaults to built-in print.
 
             Returns:
             --------
@@ -115,4 +119,4 @@ class ProbabilityDistributionLogger:
 
         if self.save_probas:
             self.file.close()
-            print(f"probability distributions of {agent.__class__.__name__} stored in {self.save_probas}")
+            log(f"probability distributions of {agent.__class__.__name__} stored in {self.save_probas}")

@@ -6,6 +6,8 @@ FUNC = None
 MOTHER_FUNCTION = None
 FUNCTION_CHANGE = False
 
+VERBOSE = False
+
 
 def _get_head(depth=1):
     global FUNC
@@ -19,30 +21,37 @@ def _get_head(depth=1):
     return f"[{now}][{file}][{FUNC}][{line}][LOG] "
 
 
-def open_logger(filename, mode='a'):
-    global FILE
+def open_logger(filename, mode='a', verbose=False):
+    global FILE, VERBOSE
     FILE = open(filename, mode=mode)
     FILE.write(_get_head() + "logger opened." + '\n')
+    VERBOSE = verbose
 
 
 def log(*args, **kwargs):
-    global FUNCTION_CHANGE, MOTHER_FUNCTION, FILE, FUNC
+    global VERBOSE
+    if VERBOSE:
+        global FUNCTION_CHANGE, MOTHER_FUNCTION, FILE, FUNC
 
-    head = _get_head()
+        head = _get_head()
 
-    FUNCTION_CHANGE = FUNC != MOTHER_FUNCTION
-    MOTHER_FUNCTION = FUNC
+        FUNCTION_CHANGE = FUNC != MOTHER_FUNCTION
+        MOTHER_FUNCTION = FUNC
 
-    if FUNCTION_CHANGE:
-        print()
-        FILE.write('\n')
+        if FUNCTION_CHANGE:
+            print()
+            FILE.write('\n')
 
-    print(head, *args, **kwargs)
-    FILE.write(head + ' '.join(map(str, args)) + '\n')
+        print("[@]", *args, **kwargs)
+        FILE.write(head + ' '.join(map(str, args)) + '\n')
+
+
+def void(*args, **kwargs):
+    pass
 
 
 def close_logger():
-    global FUNCTION_CHANGE, MOTHER_FUNCTION, FILE, FUNC
+    global FUNCTION_CHANGE, MOTHER_FUNCTION, FILE, FUNC, VERBOSE
 
     head = _get_head()
 
@@ -56,12 +65,14 @@ def close_logger():
     if FILE is not None:
         FILE.close()
 
+    VERBOSE = False
+
 
 def sub_main(log=print):
     log("sub_main 1")
     log("sub_main 2")
     log("sub_main 3")
-    dico = dict([(chr(97+i), sum([10**j for j in range(i)])) for i in range(20)])
+    dico = dict([(chr(97 + i), sum([10 ** j for j in range(i)])) for i in range(20)])
     log("dictionary example:", dico)
     log("sub_main end")
 
