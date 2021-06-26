@@ -20,7 +20,7 @@ class LimitEpisode(VecEnvWrapper):
             self : LimitEpisode
                 the constructed LimitEpisode object instance.
         """
-        log(f"-> {self.__class__.__name__}", end=' ')
+        log(f"-> {self.__class__.__name__}")
         super().__init__(venv=env)
         self.max_steps = max_steps
         self.current_step = 0

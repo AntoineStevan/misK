@@ -66,7 +66,7 @@ class Recorder(VecEnvWrapper):
         """
         self.print = log
 
-        self.print(f"-> {self.__class__.__name__}", end=' ')
+        self.print(f"-> {self.__class__.__name__}")
         super().__init__(venv=env)
 
         # to store the frames.

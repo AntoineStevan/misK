@@ -35,7 +35,7 @@ class VecFrameStack(VecEnvWrapper):
 
 class VecExtractDictObs(VecEnvObservationWrapper):
     def __init__(self, venv, key, log=print):
-        log(f"-> {self.__class__.__name__}", end=' ')
+        log(f"-> {self.__class__.__name__}")
         self.key = key
         super().__init__(venv=venv,
                          observation_space=venv.observation_space.spaces[self.key])
@@ -90,7 +90,7 @@ class VecNormalize(VecEnvWrapper):
 
 class TransposeFrame(VecEnvWrapper):
     def __init__(self, env, log=print):
-        log(f"-> {self.__class__.__name__}", end=' ')
+        log(f"-> {self.__class__.__name__}")
         super().__init__(venv=env)
         obs_shape = self.observation_space.shape
         self.observation_space = spaces.Box(low=0, high=255, shape=(obs_shape[2], obs_shape[0], obs_shape[1]),
@@ -107,7 +107,7 @@ class TransposeFrame(VecEnvWrapper):
 
 class ScaledFloatFrame(VecEnvWrapper):
     def __init__(self, env, log=print):
-        log(f"-> {self.__class__.__name__}", end=' ')
+        log(f"-> {self.__class__.__name__}")
         super().__init__(venv=env)
         obs_shape = self.observation_space.shape
         self.observation_space = spaces.Box(low=0, high=1, shape=obs_shape, dtype=np.float32)
