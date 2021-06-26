@@ -61,7 +61,9 @@ def close_logger():
     if FUNCTION_CHANGE:
         print()
         FILE.write('\n')
-    FILE.write(head + "logger closed." + "\n\n")
+    FILE.write(head + "logger closed." + '\n')
+    FILE.write('-'*100 + "\n")
+    FILE.write('-'*100 + "\n")
     if FILE is not None:
         FILE.close()
 
@@ -86,6 +88,6 @@ def main(log=print):
 
 
 if __name__ == "__main__":
-    open_logger("log/log.log")
+    open_logger("log/log.log", verbose=True)
     main(log=log)
     close_logger()
