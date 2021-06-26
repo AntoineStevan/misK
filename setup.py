@@ -9,6 +9,7 @@ setup(
     author_email='"stevan.antoine@gmail.com"',
     packages=["misK",
               "misK.distributions",
+              "misK.misc",
               "misK.params",
               "misK.parse",
               "misK.plots",
