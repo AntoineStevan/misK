@@ -1,6 +1,6 @@
 import os
 
-from numpy import ceil as np_ceil
+from numpy import round as np_round
 
 from torch.nn.functional import softmax as tnnf_softmax
 
@@ -90,9 +90,9 @@ class ProbabilityDistributionLogger:
         probas = None
         if self.show_probas or self.save_probas:
             probas = tnnf_softmax(agent.categorize(obs).logits, dim=1)[0].tolist()
-            term_bars = [frame, episode] + ['.' * np_ceil(proba * col_width).astype(int) for proba, col_width in
+            term_bars = [frame, episode] + ['.' * np_round(proba * col_width).astype(int) for proba, col_width in
                                             zip(probas, self.terminal_col_widths[2:])]
-            file_bars = [frame, episode] + ['.' * np_ceil(proba * col_width).astype(int) for proba, col_width in
+            file_bars = [frame, episode] + ['.' * np_round(proba * col_width).astype(int) for proba, col_width in
                                             zip(probas, self.file_col_widths[2:])]
             if self.show_probas:
                 print(self.terminal_format.format(*term_bars))

@@ -254,19 +254,20 @@ class Recorder(VecEnvWrapper):
                 draw.text((x_text, y_text), line, self.text_color, font=self.font)
                 y_text += h
 
-            w, h = self.desired_output_size[0] // len(self.dist_buffer[i]), 50
-            rect = (x_text, self.desired_output_size[1] - h, w - 1, self.desired_output_size[1] - 1)
-            for j, comp in enumerate(self.dist_buffer[i]):
-                if j == self.action_buffer[i]:
-                    continue
-                offset = (j * w, 0, j * w, 0)
-                gray = comp * 255
+            if self.dist_buffer[i] is not None:
+                w, h = self.desired_output_size[0] // len(self.dist_buffer[i]), 50
+                rect = (x_text, self.desired_output_size[1] - h, w - 1, self.desired_output_size[1] - 1)
+                for j, comp in enumerate(self.dist_buffer[i]):
+                    if j == self.action_buffer[i]:
+                        continue
+                    offset = (j * w, 0, j * w, 0)
+                    gray = comp * 255
 
-                draw.rectangle(tuple(map(sum, zip(rect, offset))), fill=tuple(map(int, [gray] * 3)))
-            offset = (self.action_buffer[i] * w, 0, self.action_buffer[i] * w, 0)
-            gray = self.dist_buffer[i][self.action_buffer[i]] * 255
-            box = (255, 0, 0)
-            draw.rectangle(tuple(map(sum, zip(rect, offset))), fill=tuple(map(int, [gray] * 3)), outline=box, width=3)
+                    draw.rectangle(tuple(map(sum, zip(rect, offset))), fill=tuple(map(int, [gray] * 3)))
+                offset = (self.action_buffer[i] * w, 0, self.action_buffer[i] * w, 0)
+                gray = self.dist_buffer[i][self.action_buffer[i]] * 255
+                box = (255, 0, 0)
+                draw.rectangle(tuple(map(sum, zip(rect, offset))), fill=tuple(map(int, [gray] * 3)), outline=box, width=3)
 
         # file stamps.
         now = datetime.now()
@@ -276,7 +277,6 @@ class Recorder(VecEnvWrapper):
 
         # saving the video.
         self.print(f"saving video in {filename}...", end=' ', flush=True)
-        print("saving video")
         self.frame_buffer[0].save(filename, save_all=True, append_images=self.frame_buffer[1:],
                                   optimize=True, duration=1000 // self.frame_rate, loop=0)
         self.saved_videos.append(filename)
