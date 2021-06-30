@@ -16,11 +16,12 @@ def vprint(*args, end='\n'):
     sys.stdout.write("\033[F\033[K")
 
 
-def verror():
+def verror(log=lambda *args, **kw: ''):
     """
         Takes care of the current error by printing the stack trace in red. Should be called when an error gets caught.
     """
     print(f"\n{BColors.CRED}{traceback.format_exc()}{BColors.ENDC}")
+    log(traceback.format_exc())
 
 
 def give_heading(text='', ll=6):
