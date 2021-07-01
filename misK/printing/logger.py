@@ -52,19 +52,19 @@ def void(*args, **kwargs):
 
 def close_logger():
     global FUNCTION_CHANGE, MOTHER_FUNCTION, FILE, FUNC, VERBOSE
+    if not FILE.closed:
 
-    head = _get_head()
+        head = _get_head()
 
-    FUNCTION_CHANGE = FUNC != MOTHER_FUNCTION
-    MOTHER_FUNCTION = FUNC
+        FUNCTION_CHANGE = FUNC != MOTHER_FUNCTION
+        MOTHER_FUNCTION = FUNC
 
-    if FUNCTION_CHANGE:
-        print()
-        FILE.write('\n')
-    FILE.write(head + "logger closed." + '\n')
-    FILE.write('-'*100 + "\n")
-    FILE.write('-'*100 + "\n")
-    if FILE is not None:
+        if FUNCTION_CHANGE:
+            print()
+            FILE.write('\n')
+        FILE.write(head + "logger closed." + '\n')
+        FILE.write('-'*100 + "\n")
+        FILE.write('-'*100 + "\n")
         FILE.close()
 
     VERBOSE = False
