@@ -25,6 +25,8 @@ class LimitEpisode(VecEnvWrapper):
         self.max_steps = max_steps
         self.current_step = 0
 
+        print("num_envs:", self.num_envs)
+
     def step_wait(self):
         """
             Wrapper for the step_wait method.
@@ -43,7 +45,7 @@ class LimitEpisode(VecEnvWrapper):
         self.current_step += 1
         if self.current_step >= self.max_steps:
             self.current_step = 0
-            done = [True]
+            done = [True] * self.num_envs
 
         return obs, reward, done, info
 
