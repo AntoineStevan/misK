@@ -25,8 +25,6 @@ class LimitEpisode(VecEnvWrapper):
         self.max_steps = max_steps
         self.current_step = 0
 
-        print("num_envs:", self.num_envs)
-
     def step_wait(self):
         """
             Wrapper for the step_wait method.
