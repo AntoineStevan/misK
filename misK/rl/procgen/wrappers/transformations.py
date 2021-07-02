@@ -89,16 +89,16 @@ class VecNormalize(VecEnvWrapper):
 
 
 class TransposeFrame(VecEnvWrapper):
-    def __init__(self, env, log=print):
+    def __init__(self, venv, log=print):
         log(f"-> {self.__class__.__name__}")
-        super().__init__(venv=env)
+        super().__init__(venv=venv)
         obs_shape = self.observation_space.shape
         self.observation_space = spaces.Box(low=0, high=255, shape=(obs_shape[2], obs_shape[0], obs_shape[1]),
                                             dtype=np.float32)
 
     def step_wait(self):
-        obs, reward, done, info = self.venv.step_wait()
-        return obs.transpose(0, 3, 1, 2), reward, done, info
+        obs, rewards, dones, infos = self.venv.step_wait()
+        return obs.transpose(0, 3, 1, 2), rewards, dones, infos
 
     def reset(self):
         obs = self.venv.reset()
@@ -106,15 +106,15 @@ class TransposeFrame(VecEnvWrapper):
 
 
 class ScaledFloatFrame(VecEnvWrapper):
-    def __init__(self, env, log=print):
+    def __init__(self, venv, log=print):
         log(f"-> {self.__class__.__name__}")
-        super().__init__(venv=env)
+        super().__init__(venv=venv)
         obs_shape = self.observation_space.shape
         self.observation_space = spaces.Box(low=0, high=1, shape=obs_shape, dtype=np.float32)
 
     def step_wait(self):
-        obs, reward, done, info = self.venv.step_wait()
-        return obs / 255.0, reward, done, info
+        obs, rewards, dones, infos = self.venv.step_wait()
+        return obs / 255.0, rewards, dones, infos
 
     def reset(self):
         obs = self.venv.reset()

@@ -2,13 +2,13 @@ from misK.rl.procgen.wrappers.base import VecEnvWrapper
 
 
 class LimitEpisode(VecEnvWrapper):
-    def __init__(self, env, max_steps, log=print):
+    def __init__(self, venv, max_steps, log=print):
         """
             Constructs a LimitEpisode instance, to allow the limiting of an agent in the environment.
 
             Args
             ----
-            env : ToBaselinesVecEnv or child
+            venv : ToBaselinesVecEnv or child
                 the vectorized environment that needs some recording.
             max_steps : int
                 the maximum number of steps allowed per episode before force quit.
@@ -21,7 +21,7 @@ class LimitEpisode(VecEnvWrapper):
                 the constructed LimitEpisode object instance.
         """
         log(f"-> {self.__class__.__name__}")
-        super().__init__(venv=env)
+        super().__init__(venv=venv)
         self.max_steps = max_steps
         self.current_step = 0
 
@@ -35,17 +35,17 @@ class LimitEpisode(VecEnvWrapper):
 
             Returns
             -------
-            (obs, reward, done, info) : (Tensor, float or int, bool, dict or None)
+            (obs, rewards, dones, infos) : (Tensor, float or int, bool, dict or None)
                 gives the gym/procgen results for a step method.
         """
-        obs, reward, done, info = self.venv.step_wait()
+        obs, rewards, dones, infos = self.venv.step_wait()
 
         self.current_step += 1
         if self.current_step >= self.max_steps:
             self.current_step = 0
-            done = [True] * self.num_envs
+            dones = [True] * self.num_envs
 
-        return obs, reward, done, info
+        return obs, rewards, dones, infos
 
     def reset(self):
         """
