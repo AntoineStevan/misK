@@ -14,18 +14,18 @@ from tqdm.auto import trange
 
 from misK.rl.procgen.wrappers.base import VecEnvWrapper
 
-ACTIONS = [u'↙', u'←', u'↖', u'↓', u'⌀',
-           u'↑', u'↘', u'→', u'↗', 'D',
-           'A', 'W', 'S', 'Q', 'E']
-LENGTH = 50
+_actions = [u'↙', u'←', u'↖', u'↓', u'⌀',
+            u'↑', u'↘', u'→', u'↗', 'D',
+            'A', 'W', 'S', 'Q', 'E']
+_length = 50
 _f = np.pi / 180
-ARROWS = [(135 * _f, LENGTH), (180 * _f, LENGTH), (225 * _f, LENGTH), (+90 * _f, LENGTH), (0, 0),
-          (270 * _f, LENGTH), (+45 * _f, LENGTH), (+0. * _f, LENGTH), (315 * _f, LENGTH), (0, 0),
-          (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
+_arrows = [(135 * _f, _length), (180 * _f, _length), (225 * _f, _length), (+90 * _f, _length), (0, 0),
+           (270 * _f, _length), (+45 * _f, _length), (+0. * _f, _length), (315 * _f, _length), (0, 0),
+           (0, 0), (0, 0), (0, 0), (0, 0), (0, 0)]
 
 
 class Recorder(VecEnvWrapper):
-    def __init__(self, env, directory, name_prefix="gif", mode="episode", trigger=1,
+    def __init__(self, env, directory, mode="episode", trigger=1,
                  frame_rate=30, needs_render=0, desired_output_size=(480, 480),
                  font="font.ttf", font_size=1, log=print):
         """
@@ -35,8 +35,6 @@ class Recorder(VecEnvWrapper):
             ----
             env : ToBaselinesVecEnv or child
                 the vectorized environment that needs some recording.
-            directory : str
-                the name of the root directory used for the recordings.
             name_prefix : str, optional
                 the name prefix for all the current recordings.
             mode : str, optional
@@ -69,46 +67,30 @@ class Recorder(VecEnvWrapper):
         self.print(f"-> {self.__class__.__name__}")
         super().__init__(venv=env)
 
-        # to store the frames.
-        self.current_frame = None
-        self.frame_buffer = []  # contains all the frames that need to be recorded.
-        self.meta_buffer = []  # contains the meta data about the episodes, namely episode lengths and endings.
-
-        # the save mode.
-        self.mode = mode  # the saving mode.
-        self.trigger = trigger  # the trigger value in trigger mode.
-        self.start_ep = 1  # the starting episode to correctly label the ouput video file.
-        self.step_count = 0  # the current step inside the current episode.
-
-        # the save parameters.
+        # # the save parameters.
         self.desired_output_size = (int(desired_output_size[0]), int(desired_output_size[1]))
         self.frame_rate = frame_rate  # the frame rate for the ouput video.
         self.directory = directory  # the place to store the video in.
-        self.name_prefix = name_prefix  # the name prefix of the video file.
-
-        # text parameters.
-        self.text_color = (255, 255, 255)
-        self.font = ImageFont.truetype(font, size=int(font_size))
-        ""
-
-        self.current_action = 0  # the current action taken by the agent.
-
-        # final monitoring.
-        self.saved_videos = []
 
         # triggers the live rendering of the environment.
         self.needs_render = needs_render
 
+        now = datetime.now()
+        name = now.strftime("%d-%m-%Y_%H-%M-%S") + '_' + str(time.time_ns())
+        self.video_dir = os.path.join(self.directory, name)
+
         # directory auto creation.
         autocreation = False
-        if not os.path.exists(self.directory):
-            os.makedirs(self.directory)
+        if not os.path.exists(self.video_dir):
+            os.makedirs(self.video_dir)
             autocreation = True
-        self.print(f"(recordings will be saved in {self.directory} "
-                   f"(name: {name_prefix}, auto: {int(autocreation)}))", end=' ')
+        self.print(f"(recordings will be saved in {self.video_dir} (auto: {int(autocreation)}))", end=' ')
 
         self.dist_buffer = []
-        self.action_buffer = []
+        self.action_buffer = [np.zeros(shape=(self.num_envs,))]
+
+        self.frames = np.zeros(shape=(self.num_envs,))  # number of frames in each current environment in the vector.
+        self.episodes = np.zeros(shape=(self.num_envs,))  # stashes the number of elapsed episodes in each environment.
 
     def push_dist(self, dist):
         self.dist_buffer.append(dist)
@@ -129,9 +111,14 @@ class Recorder(VecEnvWrapper):
         obs = self.venv.reset()
 
         # store the first frame into the buffer.
-        self.current_frame = obs[0]
-        self.frame_buffer.append(self.current_frame)
+        self.save_obs(obs, dones=[False] * self.num_envs, rewards=np.zeros(shape=(self.num_envs,)))
         return obs
+
+    def save_obs(self, obs, dones, rewards):
+        for env, frame in enumerate(obs):
+            head = os.path.join(self.video_dir, f"{env:06d}_{self.episodes[env]:06.0f}")
+            fname = head + f"_{self.frames[env]:06.0f}_{rewards[env]}_{self.action_buffer[-1][env]}_{dones[env]}.png"
+            plt.imsave(fname, np.transpose(frame, (1, 2, 0)))
 
     def step_async(self, actions):
         """
@@ -147,7 +134,7 @@ class Recorder(VecEnvWrapper):
             -------
             None
         """
-        self.action_buffer.append(actions[0])
+        self.action_buffer.append(actions)
         self.venv.step_async(actions)
 
     def step_wait(self):
@@ -163,29 +150,15 @@ class Recorder(VecEnvWrapper):
             (obs, rewards, dones, infos) : (Tensor, float or int, bool, dict or None)
                 gives the gym/procgen results for a step method.
         """
+
         obs, rewards, dones, infos = self.venv.step_wait()
-        self.step_count += 1  # always increment the step count before pushing the frame.
-
-        if sum(dones) > 0:
-            # the episode is done.
-            # add the info about the end of episode.
-            self.meta_buffer += [(self.step_count, "reward" if sum(rewards) > 0 else "dead")]
-            self.step_count = 0
-
-            if self.mode == "episode" or (self.mode == "trigger" and len(self.meta_buffer) % self.trigger == 0):
-                # needs to save a video
-                if len(self.frame_buffer) > 2:
-                    # only if there is something to save.
-                    self.save()
-
-        else:
-
-            # store the new frame into the buffer.
-            self.current_frame = obs[0]
-            self.frame_buffer.append(self.current_frame)
 
         if self.needs_render:
             self._render(time=self.needs_render)
+
+        self.save_obs(obs, dones, rewards)
+        self.frames = (self.frames + 1) * (1 - dones)
+        self.episodes += dones
 
         return obs, rewards, dones, infos
 
@@ -235,7 +208,7 @@ class Recorder(VecEnvWrapper):
             zoom = (self.desired_output_size[0] / self.frame_buffer[i].shape[0],
                     self.desired_output_size[1] / self.frame_buffer[i].shape[1], 1.)
             self.frame_buffer[i] = ndimage.zoom(self.frame_buffer[i], zoom=zoom, order=0)
-            arrow_a, arrow_l = ARROWS[self.action_buffer[i]]
+            arrow_a, arrow_l = _arrows[self.action_buffer[i]]
             x, y = tuple(map(int, (cos(arrow_a) * arrow_l, sin(arrow_a) * arrow_l)))
             self.frame_buffer[i] = cv2.arrowedLine(self.frame_buffer[i], player, tuple(map(sum, zip(player, (x, y)))),
                                                    (255, 0, 0), 8)
@@ -267,7 +240,8 @@ class Recorder(VecEnvWrapper):
                 offset = (self.action_buffer[i] * w, 0, self.action_buffer[i] * w, 0)
                 gray = self.dist_buffer[i][self.action_buffer[i]] * 255
                 box = (255, 0, 0)
-                draw.rectangle(tuple(map(sum, zip(rect, offset))), fill=tuple(map(int, [gray] * 3)), outline=box, width=3)
+                draw.rectangle(tuple(map(sum, zip(rect, offset))), fill=tuple(map(int, [gray] * 3)), outline=box,
+                               width=3)
 
         # file stamps.
         now = datetime.now()
@@ -315,15 +289,15 @@ class Recorder(VecEnvWrapper):
             None
         """
         self.venv.close()
-        if len(self.frame_buffer) > 1:
-            self.save()
-
-        # show the saved videos and clears the list to print it only once when Recorder.close() is called many times.
-        if len(self.saved_videos) > 0:
-            self.print("open saved videos with:")
-            for video in self.saved_videos:
-                self.print(f"eog {video}")
-            self.saved_videos = []
+        # if len(self.frame_buffer) > 1:
+        #     self.save()
+        #
+        # # show the saved videos and clears the list to print it only once when Recorder.close() is called many times.
+        # if len(self.saved_videos) > 0:
+        #     self.print("open saved videos with:")
+        #     for video in self.saved_videos:
+        #         self.print(f"eog {video}")
+        #     self.saved_videos = []
 
 
 def get_text_dimensions(text_string, font):
