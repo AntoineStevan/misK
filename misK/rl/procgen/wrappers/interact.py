@@ -22,6 +22,21 @@ class TrackAgent(VecEnvWrapper):
         super().__init__(venv=venv)
         self.agent = None
 
+    def step_async(self, actions):
+        """
+            Wrapper for the step_async method.
+
+            Args
+            ----
+            actions : list of ints
+                the actions taken in the vectorized environment.
+
+            Returns
+            -------
+            None
+        """
+        self.venv.step_async(actions)
+
     def step_wait(self):
         """
             Wrapper for the step_wait method.

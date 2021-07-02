@@ -95,7 +95,7 @@ class Recorder(VecEnvWrapper):
 
             Args
             ----
-            actions : list of ints, optional
+            actions : list of ints
                 the actions taken in the vectorized environment.
 
             Returns
