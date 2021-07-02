@@ -28,7 +28,7 @@ def open_logger(filename, mode='a', verbose=False):
     VERBOSE = verbose
 
 
-def log(*args, **kwargs):
+def log(*args, prt=True, log=True, **kwargs):
     global VERBOSE
     if VERBOSE:
         global FUNCTION_CHANGE, MOTHER_FUNCTION, FILE, FUNC
@@ -42,8 +42,10 @@ def log(*args, **kwargs):
             print()
             FILE.write('\n')
 
-        print("[@]", *args, **kwargs)
-        FILE.write(head + ' '.join(map(str, args)) + '\n')
+        if prt:
+            print("[@]", *args, **kwargs)
+        if log:
+            FILE.write(head + ' '.join(map(str, args)) + '\n')
 
 
 def void(*args, **kwargs):
@@ -52,7 +54,7 @@ def void(*args, **kwargs):
 
 def close_logger():
     global FUNCTION_CHANGE, MOTHER_FUNCTION, FILE, FUNC, VERBOSE
-    if not FILE.closed:
+    if FILE is not None and not FILE.closed:
 
         head = _get_head()
 

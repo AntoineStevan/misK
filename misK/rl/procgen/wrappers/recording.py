@@ -80,10 +80,6 @@ class Recorder(VecEnvWrapper):
                 gives the gym/procgen first observation in the environment.
         """
         obs = self.venv.reset()
-
-        # store the first frame into the buffer.
-        self.save_obs(obs, dones=[False] * self.num_envs, rewards=np.zeros(shape=(self.num_envs,)))
-
         return obs
 
     def save_obs(self, obs, dones, rewards):

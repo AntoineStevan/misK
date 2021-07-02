@@ -5,6 +5,7 @@ import sty
 
 from misK.utils import BColors
 import misK
+from misK.printing import logger
 
 
 def vprint(*args, end='\n'):
@@ -21,7 +22,7 @@ def verror(log=lambda *args, **kw: ''):
         Takes care of the current error by printing the stack trace in red. Should be called when an error gets caught.
     """
     print(f"\n{BColors.CRED}{traceback.format_exc()}{BColors.ENDC}")
-    log(traceback.format_exc())
+    log(traceback.format_exc(), log=True, prt=False)
 
 
 def give_heading(text='', ll=6):
@@ -63,3 +64,32 @@ def strad(string):
         return float(string)
 
     return string
+
+
+def exceptionizer(func):
+    def wrapper(*args, **kwargs):
+        try:
+            res = func(*args, **kwargs)
+            return res
+        except ValueError as ve:
+            msg = str(ve)
+            if msg.startswith("CUSTOM"):
+                print(BColors.CRED + msg.replace("CUSTOM", '') + BColors.ENDC)
+            else:
+                verror(log=logger.log)
+        except Warning as w:
+            msg = str(w)
+            if msg.startswith("CUSTOM"):
+                print(BColors.CYELLOW + msg.replace("CUSTOM", '') + BColors.ENDC)
+            else:
+                verror(log=logger.log)
+        except KeyboardInterrupt as ki:
+            verror(log=logger.log)
+        except Exception as e:
+            verror(log=logger.log)
+        finally:
+            logger.close_logger()
+
+        return None
+
+    return wrapper
