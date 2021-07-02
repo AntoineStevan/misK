@@ -38,13 +38,13 @@ def log(*args, prt=True, log=True, **kwargs):
         FUNCTION_CHANGE = FUNC != MOTHER_FUNCTION
         MOTHER_FUNCTION = FUNC
 
-        if FUNCTION_CHANGE:
-            print()
-            FILE.write('\n')
-
         if prt:
+            if FUNCTION_CHANGE:
+                print()
             print("[@]", *args, **kwargs)
         if log:
+            if FUNCTION_CHANGE:
+                FILE.write('\n')
             FILE.write(head + ' '.join(map(str, args)) + '\n')
 
 

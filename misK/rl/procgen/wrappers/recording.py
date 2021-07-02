@@ -59,7 +59,7 @@ class Recorder(VecEnvWrapper):
         if not os.path.exists(self.video_dir):
             os.makedirs(self.video_dir)
             autocreation = True
-        self.print(f"(recordings will be saved in {self.video_dir} (auto: {int(autocreation)}))", end=' ')
+        self.print(f"(recordings will be saved in {self.video_dir} (auto: {int(autocreation)}))")
 
         # some buffers to label the frames correctly.
         self.actions = [np.zeros(shape=(self.num_envs,))]  # the last actions taken by the agent.
