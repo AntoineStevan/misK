@@ -13,6 +13,8 @@ from numpy import cos, sin
 from scipy import ndimage
 from tqdm.auto import trange
 
+from gym3 import ViewerWrapper as gym3_ViewerWrapper
+
 from misK.rl.procgen.wrappers.base import VecEnvWrapper
 
 
@@ -166,6 +168,28 @@ class Recorder(VecEnvWrapper):
         # print the final video directory size.
         video_size = int(subprocess.check_output(['du', '-s', self.video_dir]).split()[0].decode('utf-8'))
         self.print(f"{self.video_dir} -> final directory size: {video_size}K")
+
+
+class ViewerWrapper(gym3_ViewerWrapper):
+    def __init__(self, venv, info_key="rgb", log=print):
+        log(f"-> {self.__class__.__name__}")
+        super().__init__(env=venv, info_key=info_key)
+        self.observation_space = self.ob_space
+        self.action_space = self.ac_space
+        self.num_envs = self.num
+        self.venv = self.env
+
+    def step(self, actions):
+        return self.venv.step(actions)
+
+    def step_wait(self):
+        return self.venv.step_wait()
+
+    def reset(self):
+        return self.venv.reset()
+
+    def close(self):
+        self.venv.close()
 
 
 def get_text_dimensions(text_string, font):
