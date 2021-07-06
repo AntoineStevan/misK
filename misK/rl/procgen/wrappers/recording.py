@@ -2,6 +2,7 @@ import os
 import time
 from datetime import datetime
 import subprocess
+import json
 
 import cv2
 import numpy as np
@@ -67,6 +68,7 @@ class Recorder(VecEnvWrapper):
         self.actions = [np.zeros(shape=(self.num_envs,))]  # the last actions taken by the agent.
         self.frames = np.zeros(shape=(self.num_envs,))  # number of frames in each current environment in the vector.
         self.episodes = np.zeros(shape=(self.num_envs,))  # stashes the number of elapsed episodes in each environment.
+        self.metadata = {}
 
     def reset(self):
         """
@@ -85,10 +87,32 @@ class Recorder(VecEnvWrapper):
         return obs
 
     def save_obs(self, obs, dones, rewards):
+        """
+            Saves an observation onto the disk.
+
+            Args
+            ----
+            obs : torch.Tensor or any multi-dimensional numpy-array-like structure
+                the observation to store on the disk, namely an image of the environment.
+            dones : array of boolean
+                tells which one of the environments are done.
+            rewards : array of floats
+                gives the current rewards of all the environments.
+
+            Returns
+            -------
+            None
+        """
         for venv, frame in enumerate(obs):
             head = os.path.join(self.video_dir, f"{venv:06d}_{self.episodes[venv]:06.0f}")
-            fname = head + f"_{self.frames[venv]:06.0f}_{rewards[venv]}_{self.actions[venv]}_{dones[venv]}.png"
-            plt.imsave(fname, np.transpose(frame, (1, 2, 0)))
+            filename = head + f"_{self.frames[venv]:06.0f}_{rewards[venv]}_{self.actions[venv]}_{dones[venv]}"
+            plt.imsave(filename + ".png", np.transpose(frame, (1, 2, 0)))
+            with open(filename + ".meta", 'w') as f:
+                f.write(json.dumps(self.metadata["dist"][venv]))
+        self.metadata = {}
+
+    def push_meta(self, meta):
+        self.metadata = meta
 
     def step_async(self, actions):
         """
