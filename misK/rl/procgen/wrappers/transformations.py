@@ -119,3 +119,48 @@ class ScaledFloatFrame(VecEnvWrapper):
     def reset(self):
         obs = self.venv.reset()
         return obs / 255.0
+
+
+class SymmetricEnv(VecEnvWrapper):
+    def __init__(self, venv, expert=True, log=print):
+        log(f"-> {self.__class__.__name__}")
+        super().__init__(venv=venv)
+        obs_shape = self.observation_space.shape
+        self.observation_space = spaces.Box(low=0, high=1, shape=obs_shape, dtype=np.float32)
+
+        self.reversed = None
+        self.expert = expert
+
+    def reset(self):
+        obs = self.venv.reset()
+        # self.reversed = np.random.randint(2, size=self.num_envs)
+        self.reversed = np.ones(shape=self.num_envs)
+        obs = np.stack([np.flip(obs, axis=2) if self.reversed[i] else obs for i, obs in enumerate(obs)])
+        return obs
+
+    def step_async(self, actions):
+        """
+            Wrapper for the step_async method.
+            Also takes care of the actions taken for frame stamping.
+
+            Args
+            ----
+            actions : list of ints
+                the actions taken in the vectorized environment.
+
+            Returns
+            -------
+            None
+        """
+        # [u'↙', u'←', u'↖', u'↓', u'⌀', u'↑', u'↘', u'→', u'↗', 'D', 'A', 'W', 'S', 'Q', 'E']
+        # (0, 1, 2) <-> (6, 7, 8) if reversed
+        if not self.expert:
+            f = lambda action: action + 6 if action in [0, 1, 2] else action - 6 if action in [6, 7, 8] else action
+            actions = np.array(list(map(f, actions)))
+        self.venv.step_async(actions)
+
+    def step_wait(self):
+        obs, rewards, dones, infos = self.venv.step_wait()
+        if not self.expert:
+            obs = np.stack([np.flip(obs, axis=2) if self.reversed[i] else obs for i, obs in enumerate(obs)])
+        return obs, rewards, dones, infos
