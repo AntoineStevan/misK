@@ -108,7 +108,7 @@ class Recorder(VecEnvWrapper):
             filename = head + f"_{self.frames[venv]:06.0f}_{rewards[venv]}_{self.actions[venv]}_{dones[venv]}"
             plt.imsave(filename + ".png", np.transpose(frame, (1, 2, 0)))
             with open(filename + ".meta", 'w') as f:
-                f.write(json.dumps(self.metadata["dist"][venv]))
+                f.write(json.dumps({"logits": self.metadata["logits"][venv]}))
         self.metadata = {}
 
     def push_meta(self, meta):
