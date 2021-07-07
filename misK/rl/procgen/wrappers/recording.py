@@ -104,15 +104,24 @@ class Recorder(VecEnvWrapper):
             None
         """
         for venv, frame in enumerate(obs):
+            # compute the file name.
             head = os.path.join(self.video_dir, f"{venv:06d}_{self.episodes[venv]:06.0f}")
             filename = head + f"_{self.frames[venv]:06.0f}_{rewards[venv]}_{self.actions[venv]}_{dones[venv]}"
+            # save the frame.
             plt.imsave(filename + ".png", np.transpose(frame, (1, 2, 0)))
+
+            # incrementally construct the metadata to save.
+            metadata = {}
+            for key in ["logits", "actions"]:
+                if key in self.metadata:
+                    metadata[key] = self.metadata[key][venv]
+            # save the metadata.
             with open(filename + ".meta", 'w') as f:
-                f.write(json.dumps({"logits": self.metadata["logits"][venv]}))
+                f.write(json.dumps(metadata))
         self.metadata = {}
 
-    def push_meta(self, meta):
-        self.metadata = meta
+    def push_meta(self, metadata):
+        self.metadata = metadata
 
     def step_async(self, actions):
         """
@@ -192,6 +201,7 @@ class Recorder(VecEnvWrapper):
         # print the final video directory size.
         video_size = int(subprocess.check_output(['du', '-s', self.video_dir]).split()[0].decode('utf-8'))
         self.print(f"{self.video_dir} -> final directory size: {video_size}K")
+        print(f"python src/plots/videos.py -i {self.video_dir} -fps 30 -o out/video.avi -m raw::meta -r 500")
 
 
 class ViewerWrapper(gym3_ViewerWrapper):
