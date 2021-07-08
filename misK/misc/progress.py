@@ -1,4 +1,5 @@
 import time
+import os
 
 
 #
@@ -32,17 +33,30 @@ class ProgressBar:
         self.start = time.time()
         self.times = {}
 
+    def _inner_bar(self, progress, width):
+        done = int(progress * width / 100)
+        digit = int(round((progress - int(progress)) * 10, 0))
+        bar = '#' * done + str('#' if digit == 10 else digit) + ' ' * (width - done - 1)
+        return '[' + bar[:width] + ']'
+
     def _bar(self, progress):
-        bar_format = ' '.join([self.formats[0], self.formats[1],
-                               self._inner_bar(progress),
-                               self.formats[2], self.formats[3]])
         t = time.time() - self.start
         self.times[self.progress] = t
         pred = int(t * self.total / self.progress - t)
         t = int(t)
         speed = list(self.times.values())[-10:]
         speed = (speed[-1] - speed[0]) / len(speed)
-        speed, it = (speed, "its/s") if speed >= 1 else (1/speed, "s/it") if speed > 0 else (float("nan"), "----")
+        speed, it = (speed, "its/s") if speed >= 1 else (1 / speed, "s/it") if speed > 0 else (float("nan"), "----")
+        deco_width = len(
+            ' '.join([self.formats[0], self.formats[1],
+                      self.formats[2], self.formats[3]]).format(self.desc, progress, self.progress, self.total,
+                                                                t // 60, t % 60, pred // 60, pred % 60, speed, it))
+        terminal_width, _ = os.get_terminal_size()
+        width = min(self.width, terminal_width - deco_width - 3)
+        bar_format = ' '.join([self.formats[0], self.formats[1],
+                               self._inner_bar(progress, width),
+                               self.formats[2], self.formats[3]])
+
         return bar_format.format(self.desc, progress, self.progress, self.total,
                                  t // 60, t % 60, pred // 60, pred % 60,
                                  speed, it)
@@ -52,14 +66,7 @@ class ProgressBar:
             self.progress += incr
         else:
             self.progress = force
-
-        print('\r', self._bar(progress=100 * (self.progress-1) / self.total), sep='', end='')
-
-    def _inner_bar(self, progress):
-        done = int(progress * self.width / 100)
-        digit = int(round((progress - int(progress)) * 10, 0))
-        bar = '#' * done + str('#' if digit == 10 else digit) + ' ' * (self.width - done - 1)
-        return '[' + bar[:self.width] + ']'
+        print('\r', self._bar(progress=100 * (self.progress - 1) / self.total), sep='', end='')
 
     def set_description(self, desc):
         self.desc = desc if desc == '' else desc + ':'
