@@ -18,6 +18,7 @@ setup(
               "misK.rl.procgen",
               "misK.rl.procgen.wrappers"],
     install_requires=[
+         "sty",
         # 'cycler>=0.10.0',
         # 'kiwisolver>=1.0.1',
         # 'matplotlib>=3.0.3',
